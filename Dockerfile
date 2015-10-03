@@ -7,18 +7,19 @@ FROM ubuntu:latest
 MAINTAINER Said Sef <said@saidsef.co.uk>
 ENV BB_PKG_NAME atlassian-bamboo-5.9.4
 
+# Install Bamboo
+RUN echo ${BB_PKG_NAME}
+RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz
+RUN tar xvzf ${BB_PKG_NAME}.tar.gz
+RUN rm -vf ${BB_PKG_NAME}.tar.gz
+RUN mv /${BB_PKG_NAME} /opt
+
 # Update packages
 RUN apt-get update
 RUN apt-get upgrade -yq
 
 # Install OpenJDK 7
 RUN apt-get install -yq openjdk-7-jdk
-
-# Install Bamboo
-RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz
-RUN tar xvzf ${BB_PKG_NAME}.tar.gz
-RUN rm -vf ${BB_PKG_NAME}.tar.gz
-RUN mv /${BB_PKG_NAME} /opt
 
 # Define mountable directories
 VOLUME ["/data"]
