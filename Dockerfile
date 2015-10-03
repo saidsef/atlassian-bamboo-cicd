@@ -15,7 +15,7 @@ RUN apt-get upgrade -yq
 RUN apt-get install -yq openjdk-7-jdk
 
 # Install Bamboo
-RUN wget https://https://www.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz
+RUN wget https://www.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz
 RUN tar xvzf ${BB_PKG_NAME}.tar.gz
 RUN rm -vf ${BB_PKG_NAME}.tar.gz
 RUN mv /${BB_PKG_NAME} /opt
