@@ -2,7 +2,7 @@
 # Atlassian Bamboo Dockerfile
 #
 
-# Pull base image.
+# Pull base image
 FROM ubuntu:latest
 MAINTAINER Said Sef <said@saidsef.co.uk>
 ENV BB_PKG_NAME atlassian-bamboo-5.9.4
@@ -15,12 +15,10 @@ RUN apt-get upgrade -yq
 RUN apt-get install -yq openjdk-7-jdk
 
 # Install Bamboo
-RUN \
-  cd / && \
-  wget https://https://www.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz && \
-  tar xvzf ${BB_PKG_NAME}.tar.gz && \
-  rm -vf ${BB_PKG_NAME}.tar.gz && \
-  mv /${BB_PKG_NAME} /opt
+RUN wget https://https://www.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz
+RUN tar xvzf ${BB_PKG_NAME}.tar.gz
+RUN rm -vf ${BB_PKG_NAME}.tar.gz
+RUN mv /${BB_PKG_NAME} /opt
 
 # Define mountable directories
 VOLUME ["/data"]
