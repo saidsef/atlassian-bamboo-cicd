@@ -11,8 +11,8 @@ ENV BB_PKG_NAME atlassian-bamboo-5.9.4
 RUN apt-get update
 RUN apt-get upgrade -yq
 
-# Install OpenJDK 8
-RUN apt-get install -yq openjdk-8-jdk
+# Install OpenJDK 7
+RUN apt-get install -yq openjdk-7-jdk
 
 # Install Bamboo
 RUN \
