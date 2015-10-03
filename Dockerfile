@@ -17,22 +17,22 @@ RUN apt-get install -yq openjdk-7-jdk
 # Install Bamboo
 RUN \
   cd / && \
-  wget https://https://www.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
-  tar xvzf $BB_PKG_NAME.tar.gz && \
-  rm -vf $BB_PKG_NAME.tar.gz && \
-  mv /$BB_PKG_NAME /opt
+  wget https://https://www.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz && \
+  tar xvzf ${BB_PKG_NAME}.tar.gz && \
+  rm -vf ${BB_PKG_NAME}.tar.gz && \
+  mv /${BB_PKG_NAME} /opt
 
 # Define mountable directories
 VOLUME ["/data"]
 
 # Mount elasticsearch.yml config
-ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
+ADD config/bamboo-init.properties /opt/${BB_PKG_NAME}/WEB-INF/classes/bamboo-init.properties
 
 # Define working directory.
 WORKDIR /data
 
 # Define default command.
-CMD ["/opt/$BB_PKG_NAME/bin/start-bamboo.sh"]
+CMD ["/opt/${BB_PKG_NAME}/bin/start-bamboo.sh"]
 
 # Expose ports.
 #   - 8085: HTTP
