@@ -1,5 +1,5 @@
 #
-# Bamboo Dockerfile
+# Atlassian Bamboo Dockerfile
 #
 
 # Pull base image.
