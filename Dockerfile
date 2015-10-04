@@ -7,6 +7,8 @@ FROM ubuntu:latest
 MAINTAINER Said Sef <said@saidsef.co.uk>
 ENV BB_PKG_NAME atlassian-bamboo-5.9.4
 
+# Install wget
+RUN apt-get install -yq wget
 # Install Bamboo
 RUN echo ${BB_PKG_NAME}
 RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz
