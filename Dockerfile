@@ -8,9 +8,9 @@ MAINTAINER Said Sef <said@saidsef.co.uk>
 ENV BB_PKG_NAME atlassian-bamboo-5.9.4
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 
-# Install wget
-RUN apt-get install -yq wget \
-    openjdk-7-jdk
+# Install wget and OpenJDK7
+RUN apt-get install -yq wget
+RUN apt-get install -yq openjdk-7-jdk
 
 # Install Bamboo
 RUN echo $BB_PKG_NAME
