@@ -10,7 +10,7 @@ ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 
 # Install wget and OpenJDK7
 RUN apt-get install -yq wget
-RUN apt-get install -yq openjdk-7-jdk
+RUN apt-get install -yq openjdk-7-jre
 
 # Install Bamboo
 RUN echo $BB_PKG_NAME
