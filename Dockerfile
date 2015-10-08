@@ -14,14 +14,14 @@ RUN apt-get -yq upgrade
 
 # Install wget and OpenJDK7
 RUN apt-get install -yq wget
-RUN apt-get install -yq openjdk-7-jre
+RUN apt-get install -yq openjdk-7-jre-headless
 
 # Install Bamboo
 RUN echo $BB_PKG_NAME
 RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz
 RUN tar xvzf ${BB_PKG_NAME}.tar.gz
 RUN rm -vf ${BB_PKG_NAME}.tar.gz
-RUN mv /$BB_PKG_NAME /opt
+RUN mv $BB_PKG_NAME /opt
 RUN ls -lh /opt
 
 # Define mountable directories
