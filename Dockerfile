@@ -10,11 +10,10 @@ ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 
 # Update OS
 RUN apt-get -yq update
-RUN apt-get -yq upgrade
 
 # Install wget and OpenJDK7
 RUN apt-get install -yq wget
-RUN apt-get install -yq openjdk-7-jre-headless
+RUN apt-get install -yq openjdk-8-jre-headless
 
 # Install Bamboo
 RUN echo $BB_PKG_NAME
@@ -34,7 +33,7 @@ ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.
 WORKDIR /data
 
 # Define default command.
-CMD ["/opt/$BB_PKG_NAME/bin/start-bamboo.sh"]
+CMD ["/opt/$BB_PKG_NAME/bin/start.sh"]
 
 # Expose ports.
 #   - 8085: HTTP
