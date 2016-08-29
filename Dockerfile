@@ -35,9 +35,9 @@ ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.
 # Define working directory.
 WORKDIR /data
 
-# Define default command.
-CMD ["/opt/$BB_PKG_NAME/bin/start.sh"]
-
 # Expose ports.
 #   - 8085: HTTP
 EXPOSE 8085
+
+# Define default command.
+CMD ["/opt/$BB_PKG_NAME/bin/start.sh"]
