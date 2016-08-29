@@ -2,18 +2,17 @@
 # Atlassian Bamboo Dockerfile
 #
 
-# Pull base image
-FROM ubuntu:latest
+# Pull base image Ubuntu 16.04 LTS
+FROM ubuntu:16.04
 MAINTAINER Said Sef <said@saidsef.co.uk>
-ENV BB_PKG_NAME atlassian-bamboo-5.9.4
+ENV BB_PKG_NAME atlassian-bamboo-5.13.0.1
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 
 # Update OS
 RUN apt-get -yq update
 
-# Install wget and OpenJDK7
-RUN apt-get install -yq wget
-RUN apt-get install -yq openjdk-8-jre-headless
+# Install wget and OpenJDK 8
+RUN apt-get install -yq wget openjdk-8-jre-headless
 
 # Install Bamboo
 RUN echo $BB_PKG_NAME
@@ -26,7 +25,7 @@ RUN ls -lh /opt
 # Define mountable directories
 VOLUME ["/data"]
 
-# Mount elasticsearch.yml config
+# ADD  bamboo-init.properties config
 ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
 
 # Define working directory.
