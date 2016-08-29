@@ -14,6 +14,10 @@ RUN apt-get -yq update
 # Install wget and OpenJDK 8
 RUN apt-get install -yq wget openjdk-8-jre-headless
 
+# Clean up APT cache
+RUN apt-get clean && \
+    apt-get autoclean
+
 # Install Bamboo
 RUN echo $BB_PKG_NAME
 RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz
