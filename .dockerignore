@@ -1,0 +1,4 @@
+# items to ignore
+.git/
+.gitignore
+*.md
