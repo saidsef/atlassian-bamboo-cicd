@@ -2,7 +2,7 @@
 # Atlassian Bamboo Dockerfile
 #
 
-# Pull base image Ubuntu 16.04 LTS
+# Pull base image Ubuntu latest
 FROM ubuntu:latest
 MAINTAINER Said Sef <said@saidsef.co.uk>
 
@@ -16,7 +16,7 @@ ENV HOME /tmp
 # Define working directory.
 WORKDIR /data
 
-# Update OS
+# Update repo cache
 RUN apt-get -yq update
 
 # Install wget and OpenJDK 8
