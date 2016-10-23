@@ -16,7 +16,7 @@ WORKDIR /data
 RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 RUN \
   apt-get -yq update && \
-  apt-get install -yq python-software-properties && \
+  apt-get install -yq software-properties-common && \
   add-apt-repository -y ppa:webupd8team/java && \
   apt-get -yq update && \
   apt-get install -yq oracle-java8-installer && \
