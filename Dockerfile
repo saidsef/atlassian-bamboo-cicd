@@ -12,15 +12,16 @@ ENV DEBIAN_FRONTEND noninteractive
 # Define working directory.
 WORKDIR /data
 
-# Update repo cache
-RUN apt-get -yq update
-
-# Install wget and OpenJDK 8
-RUN apt-get install -yq wget curl openjdk-8-jre-headless
-
-# Clean up APT cache
-RUN apt-get -yq clean
-RUN apt-get -yq autoclean
+# Install Oracle JAVA 8
+RUN \
+  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
+  add-apt-repository -y ppa:webupd8team/java && \
+  apt-get -yq update && \
+  apt-get install -yq oracle-java8-installer && \
+  rm -rf /var/lib/apt/lists/* && \
+  rm -rf /var/cache/oracle-jdk8-installer && \
+  apt-get -yq clean && \
+  apt-get -yq autoclean
 
 # Install Bamboo
 RUN echo ${BB_PKG_NAME}
