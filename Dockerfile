@@ -1,4 +1,4 @@
-FROM debian:jessie
+FROM ubuntu:16.04
 MAINTAINER Said Sef <said@saidsef.co.uk>
 
 LABEL version="3.0"
