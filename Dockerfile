@@ -35,6 +35,10 @@ VOLUME ["/data"]
 # ADD  bamboo-init.properties config
 ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
 
+#  create build id
+ARG BUILD_ID=""
+RUN echo ${BUILD_ID} > build_id.txt
+
 # Expose ports
 EXPOSE 8085
 
