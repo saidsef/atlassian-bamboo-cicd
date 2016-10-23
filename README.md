@@ -1,4 +1,4 @@
-## Atlassian Bamboo CI Dockerfile
+## Atlassian Bamboo CI Dockerfile [![Build Status](https://travis-ci.org/saidsef/ubuntu-bamboo-dockerfile.svg?branch=master)](https://travis-ci.org/saidsef/ubuntu-bamboo-dockerfile)
 
 
 This repository contains **Dockerfile** of [Bamboo](https://www.atlassian.com/software/bamboo/download) for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
