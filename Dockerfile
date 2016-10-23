@@ -13,8 +13,8 @@ ENV DEBIAN_FRONTEND noninteractive
 WORKDIR /data
 
 # Install Oracle JAVA 8
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
 RUN \
-  echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | debconf-set-selections && \
   apt-get -yq update && \
   apt-get install python-software-properties && \
   add-apt-repository -y ppa:webupd8team/java && \
