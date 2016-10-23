@@ -1,29 +1,26 @@
-FROM ubuntu:16.04
+FROM alpine:latest
 MAINTAINER Said Sef <said@saidsef.co.uk>
 
-LABEL version="3.0"
+LABEL version="4.0"
 LABEL description="Containerised Bomboo Server"
 
 ENV BB_PKG_NAME atlassian-bamboo-5.13.2
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
-ENV DEBIAN_FRONTEND noninteractive
 
 # Define working directory.
 WORKDIR /data
 
 # Install WponJDK Java 8
 RUN \
-  apt-get -yq update && \
-  apt-get install -yq wget openjdk-8-jre-headless && \
-  apt-get -yq clean && \
-  apt-get -yq autoclean
+  apk add --update wget curl openjdk8-jre-base
 
 # Install Bamboo
 RUN echo ${BB_PKG_NAME}
 RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz
 RUN tar xvzf ${BB_PKG_NAME}.tar.gz
 RUN rm -vf ${BB_PKG_NAME}.tar.gz
+RUN mkdir -p /opt
 RUN mv $BB_PKG_NAME /opt
 
 # Define mountable directories
