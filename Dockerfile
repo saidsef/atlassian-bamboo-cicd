@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM java:openjdk-8
 MAINTAINER Said Sef <said@saidsef.co.uk>
 
 LABEL version="2.0"
@@ -16,7 +16,7 @@ WORKDIR /data
 RUN apt-get -yq update
 
 # Install wget and OpenJDK 8
-RUN apt-get install -yq wget curl openjdk-8-jre-headless
+RUN apt-get install -yq wget
 
 # Clean up APT cache
 RUN apt-get -yq clean
