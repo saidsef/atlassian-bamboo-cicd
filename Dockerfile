@@ -12,16 +12,10 @@ ENV DEBIAN_FRONTEND noninteractive
 # Define working directory.
 WORKDIR /data
 
-# Install Oracle JAVA 8
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+# Install WponJDK Java 8
 RUN \
   apt-get -yq update && \
-  apt-get install -yq software-properties-common && \
-  add-apt-repository -y ppa:webupd8team/java && \
-  apt-get -yq update && \
-  apt-get install -yq oracle-java8-installer && \
-  rm -rf /var/lib/apt/lists/* && \
-  rm -rf /var/cache/oracle-jdk8-installer && \
+  apt-get install -yq wget openjdk-8-jre-headless && \
   apt-get -yq clean && \
   apt-get -yq autoclean
 
