@@ -1,7 +1,7 @@
-FROM java:openjdk-8
+FROM debian:jessie
 MAINTAINER Said Sef <said@saidsef.co.uk>
 
-LABEL version="2.0"
+LABEL version="3.0"
 LABEL description="Containerised Bomboo Server"
 
 ENV BB_PKG_NAME atlassian-bamboo-5.13.2
@@ -16,7 +16,7 @@ WORKDIR /data
 RUN apt-get -yq update
 
 # Install wget and OpenJDK 8
-RUN apt-get install -yq wget
+RUN apt-get install -yq wget curl openjdk-8-jre-headless
 
 # Clean up APT cache
 RUN apt-get -yq clean
