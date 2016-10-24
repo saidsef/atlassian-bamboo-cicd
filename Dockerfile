@@ -39,4 +39,4 @@ RUN echo ${BUILD_ID} > build_id.txt
 EXPOSE 8085
 
 # Define default command.
-CMD ["/opt/$BB_PKG_NAME/bin/start.sh"]
+CMD ["/opt/",$BB_PKG_NAME,"/bin/start.sh"]
