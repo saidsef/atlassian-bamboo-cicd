@@ -15,10 +15,10 @@ WORKDIR /data
 RUN apk add --update wget curl openjdk8-jre-base
 
 # Install Bamboo
-RUN echo ${BB_PKG_NAME}
-RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/${BB_PKG_NAME}.tar.gz
-RUN tar xvzf ${BB_PKG_NAME}.tar.gz
-RUN rm -vf ${BB_PKG_NAME}.tar.gz
+RUN echo $BB_PKG_NAME
+RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz
+RUN tar xvzf $BB_PKG_NAME.tar.gz
+RUN rm -vf $BB_PKG_NAME.tar.gz
 RUN mkdir -p /opt
 RUN mv $BB_PKG_NAME /opt
 
