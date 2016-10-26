@@ -11,7 +11,7 @@ ENV HOME /tmp
 # Define working directory.
 WORKDIR /data
 
-# Install WponJDK Java 8
+# Install OpenJDK 8
 RUN apk add --update wget curl openjdk8-jre-base
 
 # Install Bamboo
