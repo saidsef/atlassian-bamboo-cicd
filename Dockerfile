@@ -14,19 +14,15 @@ ENV HOME /tmp
 # Define working directory.
 WORKDIR /data
 
-# Install wget
-RUN apk add --update wget
-
-# Download Install Bamboo
-RUN echo $BB_PKG_NAME
-RUN wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz
-RUN tar xvzf $BB_PKG_NAME.tar.gz
-RUN rm -vf $BB_PKG_NAME.tar.gz
-RUN mkdir -p /opt
-RUN mv $BB_PKG_NAME /opt
-
-# Clean up
-RUN rm -rf /var/cache/apk/*
+# Install wget and Download Install Bamboo
+RUN apk add --update wget && \
+    echo $BB_PKG_NAME && \
+    wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
+    tar xvzf $BB_PKG_NAME.tar.gz && \
+    rm -vf $BB_PKG_NAME.tar.gz && \
+    mkdir -p /opt && \
+    mv $BB_PKG_NAME /opt && \
+    rm -rf /var/cache/apk/*
 
 # Define mountable directories
 VOLUME ["/data"]
