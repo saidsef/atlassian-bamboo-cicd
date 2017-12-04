@@ -25,8 +25,8 @@ This repository contains **Dockerfile** of [Bamboo](https://www.atlassian.com/so
 
   2. Start a container by mounting data directory and specifying the custom configuration file:
 
-    ```sh
-    docker run -d -p 8085:8085 -v <data-dir>:/data saidsef/ubuntu-bamboo-dockerfile /opt/path-to-app/bin/start-bamboo.sh
-    ```
+```bash
+docker run -d -p 8085:8085 -v <data-dir>:/data saidsef/ubuntu-bamboo-dockerfile /opt/path-to-app/bin/start-bamboo.sh
+```
 
 After few seconds, open `http://<host>:8085` to see the result.
