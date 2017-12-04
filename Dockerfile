@@ -7,7 +7,7 @@ LABEL description="Containerised Bomboo Server"
 # bamboo version
 ARG BAMBOO_VERSION=""
 
-ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.2.2}
+ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.2.3}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
 
