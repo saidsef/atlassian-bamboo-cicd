@@ -1,8 +1,8 @@
 FROM java:8-jre-alpine
 MAINTAINER Said Sef <said@saidsef.co.uk>
 
-LABEL version="4.0"
-LABEL description="Containerised Bomboo Server"
+LABEL version="4.1"
+LABEL description="Containerised Atlassian Bomboo Server"
 
 # bamboo version
 ARG BAMBOO_VERSION=""
