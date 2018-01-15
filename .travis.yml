@@ -9,7 +9,6 @@ python:
 install: true
 before_script:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-  - cat /etc/default/docker
   - docker version
 script:
   - ./build.sh $TRAVIS_BUILD_NUMBER
