@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Copyright (c) 2018, Said Sef. All rights reserved.
+# Use of this source code is governed by a MIT License that can be
+
+set -e
+
 BUILD_ID=$1
 
 info() {
