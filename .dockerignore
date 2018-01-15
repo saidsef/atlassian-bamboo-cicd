@@ -2,3 +2,5 @@
 .git/
 .gitignore
 *.md
+*.txt
+*.secrets
