@@ -17,7 +17,9 @@ This repository contains **Dockerfile** of [Bamboo](https://www.atlassian.com/so
 
 ### Usage
 
+```shell
     docker run -d -p 8085:8085 saidsef/ubuntu-bamboo-dockerfile
+```
 
 #### Attach persistent/shared directories
 
@@ -25,7 +27,7 @@ This repository contains **Dockerfile** of [Bamboo](https://www.atlassian.com/so
 
   2. Start a container by mounting data directory and specifying the custom configuration file:
 
-```bash
+```shell
 docker run -d -p 8085:8085 -v <data-dir>:/data saidsef/ubuntu-bamboo-dockerfile /opt/path-to-app/bin/start-bamboo.sh
 ```
 
