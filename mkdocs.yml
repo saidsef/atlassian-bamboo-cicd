@@ -1,0 +1,5 @@
+site_name: ubuntu_bamboo
+pages:
+    - Home: README.md
+    - License: LICENSE.md
+theme: readthedocs
