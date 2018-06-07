@@ -25,3 +25,12 @@ docker run -d -p 8085:8085 -v <data-dir>:/data saidsef/ubuntu-bamboo-dockerfile 
 ```
 
 After few seconds, open `http://<host>:8085` to see the result.
+
+## Docs
+
+```shell
+mkdocs build
+mkdocs serve
+```
+
+Open up `http://127.0.0.1:8000/` in your browser, and you'll see the default home page being displayed

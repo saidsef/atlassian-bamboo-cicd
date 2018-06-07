@@ -1,13 +1,15 @@
-FROM java:jre-alpine
+FROM openjdk:jre-alpine
 MAINTAINER Said Sef <said@saidsef.co.uk>
-
-LABEL version="4.2"
-LABEL description="Containerised Atlassian Bomboo Server"
 
 # build_id, bamboo version
 ARG BUILD_ID=""
 ARG BAMBOO_VERSION=""
 ARG PORT=""
+ARG REF=""
+
+LABEL version="6.5"
+LABEL description="Containerised Atlassian Bomboo Server"
+LABEL "uk.co.saidsef.bamboo"="${REF}"
 
 ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.5.0}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
@@ -18,7 +20,7 @@ ENV PORT ${PORT:-8085}
 WORKDIR /data
 
 # Install wget and Download Install Bamboo
-RUN apk add --update wget && \
+RUN apk add --update --no-cache wget && \
     echo $BB_PKG_NAME && \
     wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
     tar xvzf $BB_PKG_NAME.tar.gz && \
@@ -34,10 +36,10 @@ ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.
 VOLUME ["/data"]
 
 #  create build id
-RUN echo ${BUILD_ID} > build_id.txt
+RUN echo ${TAG} > build_id.txt
 
 # Expose ports
-EXPOSE $PORT
+EXPOSE ${PORT}
 
 # Define default command.
 CMD ["/opt/"$BB_PKG_NAME"/bin/start.sh"]

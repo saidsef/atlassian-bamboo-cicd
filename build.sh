@@ -6,6 +6,7 @@
 set -e
 
 BUILD_ID=$1
+REF=`git rev-parse --short HEAD`
 
 info() {
   echo """
@@ -28,14 +29,14 @@ delete() {
   if [ ! -z "$(docker images -a -q | head -n 1)" ]; then
     docker rmi -f $(docker images -a -q) || true
   else
-    echo "There is no dorment images"
+    echo "There are no dorment images"
   fi
 }
 
 build() {
   echo "Building image"
-  docker build --build-arg "BUILD_ID=${BUILD_ID}" -t saidsef/ubuntu-bamboo-dockerfile .
-  docker tag saidsef/ubuntu-bamboo-dockerfile saidsef/ubuntu-bamboo-dockerfile:build-${BUILD_ID}
+  docker build --build-arg "BUILD_ID=${BUILD_ID}" --build-arg "REF=${REF}" -t saidsef/ubuntu-bamboo-dockerfile .
+  docker tag saidsef/ubuntu-bamboo-dockerfile saidsef/ubuntu-bamboo-dockerfile:0.${BUILD_ID}
 }
 
 push() {
