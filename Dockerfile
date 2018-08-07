@@ -1,5 +1,5 @@
 FROM openjdk:jre-alpine
-MAINTAINER Said Sef <said@saidsef.co.uk>
+MAINTAINER Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)
 
 # build_id, bamboo version
 ARG BUILD_ID=""
@@ -7,11 +7,11 @@ ARG BAMBOO_VERSION=""
 ARG PORT=""
 ARG REF=""
 
-LABEL version="6.5"
+LABEL version="6.6"
 LABEL description="Containerised Atlassian Bomboo Server"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
-ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.5.0}
+ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.6.0}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
 ENV PORT ${PORT:-8085}
