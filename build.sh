@@ -36,7 +36,7 @@ delete() {
 build() {
   echo "Building image"
   docker build --build-arg "BUILD_ID=${BUILD_ID}" --build-arg "REF=${REF}" -t saidsef/ubuntu-bamboo-dockerfile .
-  docker build --build-arg "BUILD_ID=${BUILD_ID}" --build-arg "REF=${REF}" -t saidsef/ubuntu-bamboo-dockerfile . -f Dockerfile.arm64
+  docker build --build-arg "BUILD_ID=${BUILD_ID}" --build-arg "REF=${REF}" -t saidsef/ubuntu-bamboo-dockerfile:arm64 . -f Dockerfile.arm64
   docker tag saidsef/ubuntu-bamboo-dockerfile saidsef/ubuntu-bamboo-dockerfile:0.${BUILD_ID}
 }
 
