@@ -1,5 +1,4 @@
 FROM openjdk:jre-alpine
-MAINTAINER Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)
 
 # build_id, bamboo version
 ARG BUILD_ID=""
@@ -7,11 +6,12 @@ ARG BAMBOO_VERSION=""
 ARG PORT=""
 ARG REF=""
 
-LABEL version="6.8"
 LABEL description="Containerised Atlassian Bomboo Server"
+LABEL maintainer="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
+LABEL version="6.10.4"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
-ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.8.3}
+ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.10.4}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
 ENV PORT ${PORT:-8085}
@@ -19,7 +19,7 @@ ENV PORT ${PORT:-8085}
 # Define working directory.
 WORKDIR /data
 
-# Install wget and Download Install Bamboo
+# Install wget and Download Bamboo
 RUN apk add --update --no-cache wget && \
     echo $BB_PKG_NAME && \
     wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
@@ -29,7 +29,7 @@ RUN apk add --update --no-cache wget && \
     mv $BB_PKG_NAME /opt && \
     rm -rf /var/cache/apk/*
 
-# ADD  bamboo-init.properties config
+# ADD bamboo-init.properties config
 ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
 
 # Define mountable directories
@@ -42,4 +42,4 @@ RUN echo ${TAG} > build_id.txt
 EXPOSE ${PORT}
 
 # Define default command.
-CMD ["/opt/"$BB_PKG_NAME"/bin/start.sh"]
+CMD /opt/$BB_PKG_NAME/bin/start.sh
