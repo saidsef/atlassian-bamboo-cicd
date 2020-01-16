@@ -33,26 +33,35 @@ delete() {
   fi
 }
 
-build() {
-  echo "Building image"
-  docker build --build-arg "BUILD_ID=${BUILD_ID}" --build-arg "REF=${REF}" -t saidsef/ubuntu-bamboo-dockerfile .
-  docker build --build-arg "BUILD_ID=${BUILD_ID}" --build-arg "REF=${REF}" -t saidsef/ubuntu-bamboo-dockerfile:arm64 . -f Dockerfile.arm64
-  docker tag saidsef/ubuntu-bamboo-dockerfile saidsef/ubuntu-bamboo-dockerfile:0.${BUILD_ID}
+# deprecated in favour of buildx
+# build() {
+#   echo "Building image"
+#   docker build --build-arg "BUILD_ID=${BUILD_ID}" --build-arg "REF=${REF}" -t saidsef/ubuntu-bamboo-dockerfile .
+#   docker build --build-arg "BUILD_ID=${BUILD_ID}" --build-arg "REF=${REF}" -t saidsef/ubuntu-bamboo-dockerfile:arm64 . -f Dockerfile.arm64
+#   docker tag saidsef/ubuntu-bamboo-dockerfile saidsef/ubuntu-bamboo-dockerfile:0.${BUILD_ID}
+# }
+
+buildx() {
+  echo "Build multi ARCH"
+  docker buildx create --use
+  docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t saidsef/ubuntu-bamboo-dockerfile:latest --push .
 }
 
-push() {
-  echo "Pushing image to docker hub"
-  docker push saidsef/ubuntu-bamboo-dockerfile
-  echo $?
-}
+# deprecated in favour of buildx
+# push() {
+#   echo "Pushing image to docker hub"
+#   docker push saidsef/ubuntu-bamboo-dockerfile
+#   echo $?
+# }
 
 main() {
   info
   cleanup
-  build
-  push
-  cleanup
-  delete
+  buildx
+  # build
+  # push
+  # cleanup
+  # delete
 }
 
 main
