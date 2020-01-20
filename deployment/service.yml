@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bamboo
+  labels:
+    name: bamboo
+    app: bamboo
+spec:
+  type: ClusterIP
+  selector:
+    app: bamboo
+  ports:
+    - port: 8085
+      protocol: TCP
+      targetPort: 8085
+      name: bamboo
