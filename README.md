@@ -26,6 +26,14 @@ docker run -d -p 8085:8085 -v <data-dir>:/data saidsef/ubuntu-bamboo-dockerfile 
 
 After few seconds, open `http://<host>:8085` to see the result.
 
+### Kubernetes Deployment
+
+```shell
+kubectl apply -k deployment/
+```
+> you might need to use `kubectl port-forward ...`
+After few seconds, open `http://bamboo.[namespace].svc:8085` to see the result.
+
 ## Docs
 
 ```shell
