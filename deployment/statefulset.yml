@@ -1,0 +1,53 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: bamboo
+  labels:
+    name: bamboo
+    app: bamboo
+spec:
+  serviceName: "bamboo"
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bamboo
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "4567"
+      labels:
+        name: bamboo
+        app: bamboo
+    spec:
+      containers:
+        - image: saidsef/ubuntu-bamboo-dockerfile:latest
+          name: bamboo
+          ports:
+            - protocol: TCP
+              containerPort: 8085
+              name: bamboo
+          livenessProbe:
+            exec:
+              command:
+                - pgrep
+                - java
+            initialDelaySeconds: 3
+            periodSeconds: 3
+            successThreshold: 1
+            timeoutSeconds: 2
+          readinessProbe:
+            tcpSocket:
+                port: 8085
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+            timeoutSeconds: 1
+          volumeMounts:
+            - name: bamboo-storage
+              mountPath: /data
+              subPath: data
+      volumes:
+        - name: bamboo-storage
+          emptyDir: {}
