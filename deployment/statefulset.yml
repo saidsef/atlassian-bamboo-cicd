@@ -8,6 +8,7 @@ metadata:
     app: bamboo
 spec:
   serviceName: "bamboo"
+  revisionHistoryLimit: 1
   replicas: 1
   selector:
     matchLabels:
