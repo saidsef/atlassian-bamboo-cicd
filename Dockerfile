@@ -1,6 +1,5 @@
 FROM openjdk:jre-alpine
 
-# build_id, bamboo version
 ARG BUILD_ID=""
 ARG BAMBOO_VERSION=""
 ARG PORT=""
@@ -16,6 +15,8 @@ ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
 ENV PORT ${PORT:-8085}
 
+USER root
+
 # Define working directory.
 WORKDIR /data
 
@@ -27,16 +28,16 @@ RUN apk add --update --no-cache wget && \
     rm -vf $BB_PKG_NAME.tar.gz && \
     mkdir -p /opt && \
     mv $BB_PKG_NAME /opt && \
-    rm -rf /var/cache/apk/*
+    rm -rf /var/cache/apk/* && \
+    chown nobody:nobody /opt/$BB_PKG_NAME
 
-# ADD bamboo-init.properties config
-ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
+USER nobody
+
+# COPY bamboo-init.properties config
+COPY config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
 
 # Define mountable directories
 VOLUME ["/data"]
-
-#  create build id
-RUN echo ${TAG} > build_id.txt
 
 # Expose ports
 EXPOSE ${PORT}
