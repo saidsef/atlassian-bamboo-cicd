@@ -21,7 +21,7 @@ USER root
 WORKDIR /data
 
 # Install wget and Download Bamboo
-RUN apk add --update --no-cache wget && \
+RUN apk add --update --no-cache wget bash && \
     echo $BB_PKG_NAME && \
     wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
     tar xvzf $BB_PKG_NAME.tar.gz && \
@@ -43,4 +43,4 @@ VOLUME ["/data"]
 EXPOSE ${PORT}
 
 # Define default command.
-CMD /opt/$BB_PKG_NAME/bin/startup.sh
+CMD /opt/$BB_PKG_NAME/bin/start-bamboo.sh
