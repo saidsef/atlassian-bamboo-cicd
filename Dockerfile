@@ -29,7 +29,7 @@ RUN apk add --update --no-cache wget && \
     mkdir -p /opt && \
     mv $BB_PKG_NAME /opt && \
     rm -rf /var/cache/apk/* && \
-    chown nobody:nobody /opt/$BB_PKG_NAME
+    chown nobody:nobody -R /opt/$BB_PKG_NAME
 
 USER nobody
 
@@ -43,4 +43,4 @@ VOLUME ["/data"]
 EXPOSE ${PORT}
 
 # Define default command.
-CMD /opt/$BB_PKG_NAME/bin/start.sh
+CMD /opt/$BB_PKG_NAME/bin/startup.sh
