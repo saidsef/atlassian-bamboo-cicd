@@ -28,13 +28,15 @@ RUN apk add --update --no-cache wget bash && \
     rm -vf $BB_PKG_NAME.tar.gz && \
     mkdir -p /opt && \
     mv $BB_PKG_NAME /opt && \
-    rm -rf /var/cache/apk/* && \
-    chown nobody:nobody -R /opt/$BB_PKG_NAME
-
-USER nobody
+    rm -rf /var/cache/apk/*
 
 # COPY bamboo-init.properties config
 COPY config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
+
+# Fix dir permissions/ownership
+RUN chown nobody:nobody -R /opt/$BB_PKG_NAME
+
+USER nobody
 
 # Define mountable directories
 VOLUME ["/data"]
