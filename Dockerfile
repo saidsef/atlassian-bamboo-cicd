@@ -10,7 +10,7 @@ LABEL maintainer="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
 LABEL version="6.10.6"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
-ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.10.6}
+ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-7.0.3}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
 ENV PORT ${PORT:-8085}
@@ -23,7 +23,7 @@ WORKDIR /data
 # Install wget and Download Bamboo
 RUN apk add --update --no-cache wget bash && \
     echo $BB_PKG_NAME && \
-    wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
+    wget https://www.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
     tar xvzf $BB_PKG_NAME.tar.gz && \
     rm -vf $BB_PKG_NAME.tar.gz && \
     mkdir -p /opt && \
