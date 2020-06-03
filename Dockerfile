@@ -43,4 +43,4 @@ VOLUME ["/data"]
 EXPOSE ${PORT}
 
 # Define default command.
-CMD /opt/$BB_PKG_NAME/bin/start-bamboo.sh
+CMD /opt/$BB_PKG_NAME/bin/start-bamboo.sh -fg
