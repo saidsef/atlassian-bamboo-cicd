@@ -33,11 +33,11 @@ RUN apk add --update --no-cache wget bash && \
 # COPY bamboo-init.properties config
 COPY config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
 
-# Fix dir permissions/ownership
-RUN chown nobody:nobody -R /opt/$BB_PKG_NAME && \
-    chmod a+rwx /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
+# # Fix dir permissions/ownership
+# RUN chown nobody:nobody -R /opt/$BB_PKG_NAME && \
+#     chmod a+rwx /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
 
-USER nobody
+# USER nobody
 
 # Define mountable directories
 VOLUME ["/data"]
