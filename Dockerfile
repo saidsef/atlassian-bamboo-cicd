@@ -10,6 +10,7 @@ LABEL maintainer="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
 LABEL version="6.10.6"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
+ENV BAMBOO_HOME /data
 ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-7.0.3}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
@@ -18,10 +19,10 @@ ENV PORT ${PORT:-8085}
 USER root
 
 # Define working directory.
-WORKDIR /data
+WORKDIR $BAMBOO_HOME
 
 # Install wget and Download Bamboo
-RUN apk add --update --no-cache wget bash && \
+RUN apk add --update --no-cache wget bash openssl procps && \
     echo $BB_PKG_NAME && \
     wget https://www.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
     tar xvzf $BB_PKG_NAME.tar.gz && \
@@ -37,8 +38,6 @@ COPY config/bamboo-init.properties /opt/$BB_PKG_NAME/
 # # Fix dir permissions/ownership
 RUN chmod a+rwx /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties && \
     chmod a+rwx /opt/$BB_PKG_NAME/bamboo-init.properties
-
-# USER nobody
 
 # Define mountable directories
 VOLUME ["/data"]
