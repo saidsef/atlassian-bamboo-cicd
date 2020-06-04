@@ -35,7 +35,7 @@ COPY config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/
 COPY config/bamboo-init.properties /opt/$BB_PKG_NAME/
 
 # # Fix dir permissions/ownership
-RUN chmod a+rwx /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties \
+RUN chmod a+rwx /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties && \
     chmod a+rwx /opt/$BB_PKG_NAME/bamboo-init.properties
 
 # USER nobody
