@@ -10,6 +10,7 @@ This repository contains **Dockerfile** of [Bamboo](https://www.atlassian.com/so
 
 1. [Docker](https://www.docker.com/).
 2. Download from [Docker Hub Registry](https://hub.docker.com/r/saidsef/ubuntu-bamboo-dockerfile): `docker pull saidsef/ubuntu-bamboo-dockerfile`
+3. [Atlasian Bamboo License](https://my.atlassian.com/)
 
 ## Usage
 
