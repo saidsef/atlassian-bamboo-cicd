@@ -24,6 +24,7 @@ spec:
     spec:
       containers:
         - image: saidsef/ubuntu-bamboo-dockerfile:latest
+          imagePullPolicy: Always
           name: bamboo
           ports:
             - protocol: TCP
@@ -45,6 +46,16 @@ spec:
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 1
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            runAsGroup: 65534
+            runAsUser: 65534
+            capabilities:
+              drop:
+                - ALL
+              add:
+                - NET_RAW
           volumeMounts:
             - name: bamboo-storage
               mountPath: /data

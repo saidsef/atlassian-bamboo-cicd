@@ -1,6 +1,5 @@
 FROM openjdk:jre-alpine
 
-# build_id, bamboo version
 ARG BUILD_ID=""
 ARG BAMBOO_VERSION=""
 ARG PORT=""
@@ -11,35 +10,42 @@ LABEL maintainer="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
 LABEL version="6.10.6"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
-ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-6.10.6}
+ENV BAMBOO_HOME /data
+ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-7.0.3}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
 ENV PORT ${PORT:-8085}
 
+USER root
+
 # Define working directory.
-WORKDIR /data
+WORKDIR $BAMBOO_HOME
 
 # Install wget and Download Bamboo
-RUN apk add --update --no-cache wget && \
+RUN apk add --update --no-cache wget bash openssl procps && \
     echo $BB_PKG_NAME && \
-    wget https://my.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
+    wget https://www.atlassian.com/software/bamboo/downloads/binary/$BB_PKG_NAME.tar.gz && \
     tar xvzf $BB_PKG_NAME.tar.gz && \
     rm -vf $BB_PKG_NAME.tar.gz && \
     mkdir -p /opt && \
     mv $BB_PKG_NAME /opt && \
     rm -rf /var/cache/apk/*
 
-# ADD bamboo-init.properties config
-ADD config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties
+# COPY bamboo-init.properties config
+COPY config/bamboo-init.properties /opt/$BB_PKG_NAME/WEB-INF/classes/
+COPY config/bamboo-init.properties /opt/$BB_PKG_NAME/
+
+# # Fix dir permissions/ownership
+RUN chmod a+rwx /opt/$BB_PKG_NAME/WEB-INF/classes/bamboo-init.properties && \
+    chown nobody:nobody -R /opt/$BB_PKG_NAME
+
+USER nobody
 
 # Define mountable directories
 VOLUME ["/data"]
-
-#  create build id
-RUN echo ${TAG} > build_id.txt
 
 # Expose ports
 EXPOSE ${PORT}
 
 # Define default command.
-CMD /opt/$BB_PKG_NAME/bin/start.sh
+CMD /opt/$BB_PKG_NAME/bin/start-bamboo.sh -fg

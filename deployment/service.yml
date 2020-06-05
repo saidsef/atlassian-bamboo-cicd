@@ -8,6 +8,7 @@ metadata:
     app: bamboo
 spec:
   type: ClusterIP
+  sessionAffinity: ClientIP
   selector:
     app: bamboo
   ports:
