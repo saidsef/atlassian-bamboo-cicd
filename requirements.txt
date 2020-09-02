@@ -1,4 +1,4 @@
 -i https://pypi.org/simple
-mkdocs==0.17.3
-
-tornado>=5.1.0 # not directly required, pinned by Snyk to avoid a vulnerability
+mkdocs==1.1.2
+tornado>=5.1.0
+PyYAML>=5.3.1
