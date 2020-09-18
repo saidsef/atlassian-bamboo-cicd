@@ -25,6 +25,11 @@ spec:
       containers:
         - image: saidsef/ubuntu-bamboo-dockerfile:latest
           imagePullPolicy: Always
+          env:
+            - name: HOST_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
           name: bamboo
           ports:
             - protocol: TCP
@@ -51,6 +56,7 @@ spec:
             privileged: false
             runAsGroup: 65534
             runAsUser: 65534
+            runAsNonRoot: true
             capabilities:
               drop:
                 - ALL
