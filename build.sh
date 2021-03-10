@@ -33,16 +33,16 @@ delete() {
   fi
 }
 
-buildx() {
-  echo "Build multi ARCH"
-  docker buildx create --use
-  docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t saidsef/ubuntu-bamboo-dockerfile:latest --push .
+build() {
+  echo "Build container"
+  docker build -t saidsef/ubuntu-bamboo-dockerfile:latest .
+  docker push saidsef/ubuntu-bamboo-dockerfile
 }
 
 main() {
   info
   cleanup
-  buildx
+  build
 }
 
 main
