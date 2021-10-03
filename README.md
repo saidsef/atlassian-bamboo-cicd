@@ -9,7 +9,7 @@ This repository contains **Dockerfile** of [Bamboo](https://www.atlassian.com/so
 ## Prerequisites
 
 1. [Docker](https://www.docker.com/).
-2. Download from [Docker Hub Registry](https://hub.docker.com/r/saidsef/ubuntu-bamboo-dockerfile): `docker pull saidsef/ubuntu-bamboo-dockerfile`
+2. Download from [Docker Hub Registry](https://hub.docker.com/r/saidsef/ubuntu-bamboo-dockerfile): `docker pull docker.io/saidsef/ubuntu-bamboo-dockerfile`
 3. [Atlasian Bamboo License](https://my.atlassian.com/)
 
 ## Usage
@@ -48,3 +48,13 @@ mkdocs serve
 ```
 
 Open up `http://127.0.0.1:8000/` in your browser, and you'll see the default home page being displayed
+
+## Source
+
+Our latest and greatest source of Jenkins can be found on [GitHub](#usage). Fork us!
+
+## Contributing
+
+We would :heart:  you to contribute by making a [pull request](https://github.com/saidsef/ubuntu-bamboo-dockerfile/pulls).
+
+Please read the official [Contribution Guide](./CONTRIBUTING.md) for more information on how you can contribute.
