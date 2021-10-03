@@ -1,127 +1,90 @@
+---
 name: CI
 on:
   push:
     branches:
       - main
     paths:
-      - "function/**"
-      - "ui/**"
+      - "Dockerfile"
+      - "groovy/**"
+      - "files/**"
       - "test/**"
       - ".github/workflows/docker.yml"
   pull_request:
     branches:
       - main
     paths:
-      - "function/**"
-      - "ui/**"
+      - "Dockerfile"
+      - "groovy/**"
+      - "files/**"
       - "test/**"
       - ".github/workflows/docker.yml"
+  schedule:
+    - cron: '0 7 * */1 1'
 
 env:
+  REGISTRY: docker.io
   OWNER: ${{ github.repository_owner }}
-  REPO_NAME: ${{ github.event.repository.name }}
 
 jobs:
-  python-test:
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
-      matrix:
-        python-version: [3.8, 3.9]
-    steps:
-    - name: Check out repository code
-      uses: actions/checkout@v2
-    - name: Python ${{ matrix.python-version }} setup
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: pip install
-      run: |
-        cd function/
-        pip install -r requirements.txt
-        pip install flake8
-        flake8 . --count --show-source --statistics --ignore=E111,E501 --exit-zero --output-file=flake8tmp.txt
-    # - name: Initialize CodeQL
-    #   uses: github/codeql-action/init@v1
-    #   with:
-    #     languages: python
-    #     setup-python-dependencies: false
-    #     queries: security-and-quality
-    # - name: Perform CodeQL Analysis
-    #   uses: github/codeql-action/analyze@v1
-
   build:
     runs-on: ubuntu-latest
-    needs: [python-test]
     steps:
     - name: Check out repository code
       uses: actions/checkout@v2
-    - name: Set Tag Name
+    - name: Set Tag Names
       run: |
         echo "TAG=$(echo ${GITHUB_REF##*/})" >> $GITHUB_ENV
         echo "DATE=v$(echo `date +'%Y.%m'`)" >> $GITHUB_ENV
+        echo "REPO_NAME=$(echo ${PWD##*/})" >> $GITHUB_ENV
     - name: Login to DockerHub
       uses: docker/login-action@v1
       if: success()
       with:
-        registry: ghcr.io
-        username: ${{ env.OWNER }}
-        password: ${{ github.token }}
-    - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1.2.0
-      with:
-        platforms: all
-    - name: Set up Docker Buildx
-      id: buildx
-      if: success()
-      uses: docker/setup-buildx-action@v1
-      env:
-        DOCKER_BUILDKIT: 1
+        registry: ${{ env.REGISTRY }}
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
     - name: Build and push Docker image - (MAIN)
       uses: docker/build-push-action@v2
       if: success()
       env:
         DOCKER_BUILDKIT: 1
       with:
-        context: ./function
-        file: ./function/Dockerfile
-        platforms: linux/amd64,linux/arm64
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64
+        build-args: |
+          BUILD_ID=${{ env.DATE }}
         pull: true
         push: true
-        tags: ghcr.io/${{ env.OWNER }}/${{ env.REPO_NAME }}:${{ env.TAG == 'main' && 'latest' || env.TAG }}
-    - name: Build and push Docker image - (Server)
+        tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.REPO_NAME }}:${{ env.TAG == 'main' && 'latest' || env.TAG }}
+
+    - name: Build and push Docker image - (DATE)
       uses: docker/build-push-action@v2
-      if: success()
+      if: ${{ github.event_name == 'schedule' || contains(github.ref, 'main') }}
       env:
         DOCKER_BUILDKIT: 1
       with:
-        context: ./function
-        file: ./function/Dockerfile.server
-        platforms: linux/amd64,linux/arm64
+        context: .
+        file: ./Dockerfile
+        platforms: linux/amd64
+        build-args: |
+          BUILD_ID=${{ env.DATE }}
         pull: true
         push: true
-        tags: ghcr.io/${{ env.OWNER }}/${{ env.REPO_NAME }}:server-${{ env.TAG == 'main' && 'latest' || env.TAG }}
-    - name: Build and push Docker image - (UI)
-      uses: docker/build-push-action@v2
-      if: success()
-      env:
-        DOCKER_BUILDKIT: 1
-      with:
-        context: ./ui
-        file: ./ui/Dockerfile
-        platforms: linux/amd64,linux/arm64
-        pull: true
-        push: true
-        tags: ghcr.io/${{ env.OWNER }}/${{ env.REPO_NAME }}:ui-${{ env.TAG == 'main' && 'latest' || env.TAG }}
-    - name: Run Trivy vulnerability scanner - (Server)
+        tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.REPO_NAME }}:${{ env.DATE }}
+
+    - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       if: success()
       with:
-        image-ref: ghcr.io/${{ env.OWNER }}/${{ env.REPO_NAME }}:server-${{ env.TAG == 'main' && 'latest' || env.TAG }}
+        image-ref: ${{ env.REGISTRY }}/${{ env.OWNER }}/${{ env.REPO_NAME }}:${{ env.TAG == 'main' && 'latest' || env.TAG }}
         format: 'template'
         template: '@/contrib/sarif.tpl'
         output: 'trivy-results.sarif'
-    - name: Upload Trivy scan results to GitHub Security tab - Server
+
+    - name: Upload Trivy scan results to GitHub Security tab
       uses: github/codeql-action/upload-sarif@v1
       if: success()
       with:
@@ -130,7 +93,7 @@ jobs:
   k8s-test:
     runs-on: ubuntu-latest
     needs: [build]
-    if: ${{ ! contains(github.ref, 'main') }}
+    if: ${{ ! contains(github.ref, 'main') && github.event_name != 'schedule' }}
     steps:
       - name: Create k8s Kind Cluster
         uses: helm/kind-action@v1.2.0
@@ -141,15 +104,15 @@ jobs:
           kubectl cluster-info
           export NS=`cat deployment/kustomization.yml  | grep namespace | awk '{ print $2 }'`
           if [ -z "$NS" ]; then
-            export NS='data'
+            export NS='cicd'
           fi
           kubectl create namespace $NS
-          kubectl kustomize deployment/ | kubectl apply -f -
+          kubectl apply -n $NS -k deployment/
           kubectl get all -n $NS
 
   auto-approve:
     runs-on: ubuntu-latest
-    needs: [python-test, build, k8s-test]
+    needs: [build, k8s-test]
     if: ${{ github.event_name == 'pull_request' }}
     steps:
     - name: Check out repository code
