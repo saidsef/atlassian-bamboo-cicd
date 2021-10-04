@@ -44,6 +44,7 @@ jobs:
                 owner, repo,
                 tag_name: tag,
                 title: tag,
+                release_name: tag,
                 draft: false,
                 target_commitish: sha
               });
