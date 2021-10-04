@@ -15,4 +15,4 @@ spec:
     - port: 8085
       protocol: TCP
       targetPort: 8085
-      name: bamboo
+      name: http

@@ -1,4 +1,4 @@
-# Atlassian Bamboo CI Dockerfile [![Build Status](https://travis-ci.org/saidsef/ubuntu-bamboo-dockerfile.svg?branch=master)](https://travis-ci.org/saidsef/ubuntu-bamboo-dockerfile)
+# Atlassian Bamboo CI Dockerfile [![CI](https://github.com/saidsef/ubuntu-bamboo-dockerfile/actions/workflows/docker.yml/badge.svg)](#prerequisites) [![Tagging](https://github.com/saidsef/ubuntu-bamboo-dockerfile/actions/workflows/tagging.yml/badge.svg)](#prerequisites) [![Release](https://github.com/saidsef/ubuntu-bamboo-dockerfile/actions/workflows/release.yml/badge.svg)](#prerequisites)
 
 This repository contains **Dockerfile** of [Bamboo](https://www.atlassian.com/software/bamboo/download) for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
 
@@ -8,14 +8,16 @@ This repository contains **Dockerfile** of [Bamboo](https://www.atlassian.com/so
 
 ## Prerequisites
 
-1. [Docker](https://www.docker.com/).
-2. Download from [Docker Hub Registry](https://hub.docker.com/r/saidsef/ubuntu-bamboo-dockerfile): `docker pull saidsef/ubuntu-bamboo-dockerfile`
-3. [Atlasian Bamboo License](https://my.atlassian.com/)
+1. [Docker](https://www.docker.com/)
+2. Download from [Docker Hub Registry](https://hub.docker.com/r/saidsef/ubuntu-bamboo-dockerfile): `docker pull docker.io/saidsef/ubuntu-bamboo-dockerfile`
+3. [Atlasian Bamboo License](https://my.atlassian.com/license/evaluation)
+
+> Read Administration and Configuration of [Bamboo Server](https://confluence.atlassian.com/bamboo0702/administering-bamboo-1031179795.html) documantation
 
 ## Usage
 
 ```shell
-docker run -d -p 8085:8085 $PWD:/data saidsef/ubuntu-bamboo-dockerfile
+docker run -d -p 8085:8085 $PWD:/data docker.io/saidsef/ubuntu-bamboo-dockerfile:latest
 ```
 
 ### Attach persistent/shared directories
@@ -27,18 +29,17 @@ docker run -d -p 8085:8085 $PWD:/data saidsef/ubuntu-bamboo-dockerfile
 docker run -d -p 8085:8085 -v <data-dir>:/data saidsef/ubuntu-bamboo-dockerfile /opt/path-to-app/bin/start-bamboo.sh
 ```
 
-After few seconds, open `http://<host>:8085` to see the result.
+> After few seconds, open `http://localhost:8085`
 
 ### Kubernetes Deployment
-
-> Create Kubernets namespace `cicd` i.e. `kubectl create namespace cicd`
 
 ```shell
 kubectl apply -k deployment/
 ```
 
-> you might need to use `kubectl port-forward ...`
-After few seconds, open `http://bamboo.[namespace].svc:8085` to see the result.
+> you might need to use `kubectl port-forward svc/bamboo 8085
+
+Then, open `http://localhost:8085` to see the result.
 
 ## Docs
 
@@ -48,3 +49,13 @@ mkdocs serve
 ```
 
 Open up `http://127.0.0.1:8000/` in your browser, and you'll see the default home page being displayed
+
+## Source
+
+Our latest and greatest source of Jenkins can be found on [GitHub](#usage). Fork us!
+
+## Contributing
+
+We would :heart:  you to contribute by making a [pull request](https://github.com/saidsef/ubuntu-bamboo-dockerfile/pulls).
+
+Please read the official [Contribution Guide](./CONTRIBUTING.md) for more information on how you can contribute.

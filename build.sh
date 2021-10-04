@@ -34,9 +34,9 @@ delete() {
 }
 
 build() {
-  echo "Build container"
-  docker build -t saidsef/ubuntu-bamboo-dockerfile:latest .
-  docker push saidsef/ubuntu-bamboo-dockerfile
+  echo "Building container"
+  docker build -t docker.io/saidsef/ubuntu-bamboo-dockerfile:${BUILD_ID} .
+  docker push docker.io/saidsef/ubuntu-bamboo-dockerfile:${BUILD_ID}
 }
 
 main() {
