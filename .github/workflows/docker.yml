@@ -6,21 +6,13 @@ on:
       - main
     paths:
       - "Dockerfile"
-      - "groovy/**"
-      - "files/**"
-      - "test/**"
       - ".github/workflows/docker.yml"
   pull_request:
     branches:
       - main
     paths:
       - "Dockerfile"
-      - "groovy/**"
-      - "files/**"
-      - "test/**"
       - ".github/workflows/docker.yml"
-  schedule:
-    - cron: '0 7 * */1 1'
 
 env:
   REGISTRY: docker.io
