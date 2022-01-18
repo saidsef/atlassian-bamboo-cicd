@@ -62,7 +62,9 @@ spec:
               drop:
                 - ALL
               add:
+                - CHOWN
                 - NET_RAW
+                - SYS_TIME
           volumeMounts:
             - name: bamboo-storage
               mountPath: /data
