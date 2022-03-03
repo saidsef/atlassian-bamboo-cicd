@@ -7,11 +7,11 @@ ARG REF=""
 
 LABEL description="Containerised Atlassian Bomboo Server"
 LABEL maintainer="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
-LABEL version="8.0.5"
+LABEL version="8.0.6"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
 ENV BAMBOO_HOME /data
-ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-8.0.5}
+ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-8.0.6}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
 ENV PORT ${PORT:-8085}
