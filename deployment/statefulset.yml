@@ -23,7 +23,7 @@ spec:
         app: bamboo
     spec:
       containers:
-        - image: docker.io/saidsef/ubuntu-bamboo-dockerfile:latest
+        - image: docker.io/saidsef/atlassian-bamboo-cicd:latest
           imagePullPolicy: Always
           env:
             - name: HOST_IP
@@ -45,8 +45,7 @@ spec:
             successThreshold: 1
             timeoutSeconds: 2
           readinessProbe:
-            httpGet:
-              path: /rest/api/latest/status
+            tcpSocket:
               port: bamboo
             initialDelaySeconds: 5
             periodSeconds: 5
