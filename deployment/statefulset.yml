@@ -45,8 +45,9 @@ spec:
             successThreshold: 1
             timeoutSeconds: 2
           readinessProbe:
-            tcpSocket:
-                port: 8085
+            httpGet:
+              path: /rest/api/latest/status
+              port: bamboo
             initialDelaySeconds: 5
             periodSeconds: 5
             successThreshold: 1
