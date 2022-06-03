@@ -8,5 +8,5 @@ resources:
 
 images:
 - name: bamboo
-  newName: docker.io/saidsef/ubuntu-bamboo-dockerfile
+  newName: docker.io/saidsef/atlassian-bamboo-cicd
   newTag: latest
