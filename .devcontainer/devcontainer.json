@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/python-3
 {
-	"name": "Python 3",
+	"name": "Dev",
 	"build": {
 		"dockerfile": "Dockerfile",
 		"context": "..",
@@ -28,13 +28,19 @@
 		"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
 		"python.linting.pycodestylePath": "/usr/local/py-utils/bin/pycodestyle",
 		"python.linting.pydocstylePath": "/usr/local/py-utils/bin/pydocstyle",
-		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint"
+		"python.linting.pylintPath": "/usr/local/py-utils/bin/pylint",
+		"redhat.telemetry.enabled": false,
+		"terminal.integrated.tabs.enableAnimation": true
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-python.python",
-		"ms-python.vscode-pylance"
+		"ms-python.vscode-pylance",
+		"ms-azuretools.vscode-docker",
+		"redhat.vscode-yaml",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"ms-kubernetes-tools.kind-vscode"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
