@@ -1,4 +1,4 @@
-FROM openjdk:jre-alpine
+FROM docker.io/openjdk:jre-alpine
 
 ARG BUILD_ID=""
 ARG BAMBOO_VERSION=""
