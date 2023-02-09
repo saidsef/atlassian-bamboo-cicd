@@ -23,7 +23,7 @@ spec:
         app: bamboo
     spec:
       containers:
-        - image: docker.io/saidsef/atlassian-bamboo-cicd:latest
+        - image: docker.io/saidsef/atlassian-bamboo-cicd:v2023.02
           imagePullPolicy: Always
           env:
             - name: HOST_IP
@@ -52,6 +52,8 @@ spec:
             successThreshold: 1
             timeoutSeconds: 1
           securityContext:
+            seccompProfile:
+              type: RuntimeDefault
             allowPrivilegeEscalation: false
             privileged: false
             runAsGroup: 65534
@@ -61,14 +63,11 @@ spec:
             capabilities:
               drop:
                 - ALL
-              add:
-                - CHOWN
-                - NET_RAW
-                - SYS_TIME
           volumeMounts:
             - name: bamboo-storage
               mountPath: /data
               subPath: data
       volumes:
         - name: bamboo-storage
-          emptyDir: {}
+          emptyDir:
+            sizeLimit: 3Gi
