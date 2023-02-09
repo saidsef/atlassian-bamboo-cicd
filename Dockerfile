@@ -7,7 +7,7 @@ ARG REF=""
 
 LABEL description="Containerised Atlassian Bomboo Server"
 LABEL maintainer="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
-LABEL version="8.1.7"
+LABEL version="8.2.7"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
 ENV BAMBOO_HOME /data

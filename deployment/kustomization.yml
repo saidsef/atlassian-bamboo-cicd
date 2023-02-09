@@ -9,4 +9,4 @@ resources:
 images:
 - name: bamboo
   newName: docker.io/saidsef/atlassian-bamboo-cicd
-  newTag: latest
+  newTag: v2023.02
