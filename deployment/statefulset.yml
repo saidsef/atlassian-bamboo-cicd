@@ -23,7 +23,7 @@ spec:
         app: bamboo
     spec:
       containers:
-        - image: docker.io/saidsef/atlassian-bamboo-cicd:v2023.02
+        - image: docker.io/saidsef/atlassian-bamboo-cicd:v2023.04
           imagePullPolicy: Always
           env:
             - name: HOST_IP
