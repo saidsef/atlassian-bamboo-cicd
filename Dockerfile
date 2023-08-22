@@ -11,7 +11,7 @@ LABEL version="8.2.7"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
 ENV BAMBOO_HOME /data
-ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-8.2.8}
+ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-8.2.9}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
 ENV PORT ${PORT:-8085}
