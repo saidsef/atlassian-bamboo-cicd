@@ -79,6 +79,9 @@ spec:
             - name: data
               mountPath: /opt/atlassian-bamboo/work
               subPath: work
+            - name: data
+              mountPath: /opt/atlassian-bamboo/conf/Catalina
+              subPath: catalina
       volumes:
         - name: data
           emptyDir:

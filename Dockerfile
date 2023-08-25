@@ -1,4 +1,4 @@
-FROM docker.io/openjdk:21-slim
+FROM docker.io/openjdk:11-slim
 
 ARG BUILD_ID=""
 ARG BAMBOO_VERSION="9.2.4"
