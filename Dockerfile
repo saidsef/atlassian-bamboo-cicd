@@ -5,12 +5,12 @@ ARG BAMBOO_VERSION=""
 ARG PORT=""
 ARG REF=""
 
-LABEL description="Containerised Atlassian Bomboo Server"
+LABEL org.opencontainers.image.description="Containerised Atlassian Bomboo Server"
 LABEL maintainer="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
-LABEL version="8.2.7"
 LABEL "uk.co.saidsef.bamboo"="${REF}"
 
 ENV BAMBOO_HOME /data
+# If BAMBOO_VERSION is not supplied during build, use stable version 9.2.4
 ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION:-9.2.4}
 ENV PATH /opt/$BB_PKG_NAME/bin:$PATH
 ENV HOME /tmp
