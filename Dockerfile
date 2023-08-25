@@ -36,7 +36,7 @@ COPY config/bamboo-init.properties /opt/atlassian-bamboo/
 
 # Fix dir permissions/ownership
 RUN chmod a+rwx /opt/atlassian-bamboo/WEB-INF/classes/bamboo-init.properties && \
-    chown nobody:nobody -R /opt/atlassian-bamboo
+    chown nobody -R /opt/atlassian-bamboo
 
 USER nobody
 
