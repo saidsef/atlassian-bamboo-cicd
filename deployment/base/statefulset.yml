@@ -22,6 +22,8 @@ spec:
         name: bamboo
         app: bamboo
     spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
       securityContext:
         runAsNonRoot: true
         runAsGroup: 65534
@@ -49,14 +51,14 @@ spec:
               command:
                 - pgrep
                 - java
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
             periodSeconds: 3
             successThreshold: 1
             timeoutSeconds: 2
           readinessProbe:
             tcpSocket:
               port: bamboo
-            initialDelaySeconds: 30
+            initialDelaySeconds: 10
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 1
