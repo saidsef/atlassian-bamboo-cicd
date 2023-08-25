@@ -34,8 +34,6 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: status.hostIP
-            # - name: JAVA_OPTS
-            #   value: "-XX:+UseContainerSupport"
           name: bamboo
           ports:
             - protocol: TCP
@@ -78,6 +76,9 @@ spec:
             - name: data
               mountPath: /opt/atlassian-bamboo/logs
               subPath: logs
+            - name: data
+              mountPath: /opt/atlassian-bamboo/work
+              subPath: work
       volumes:
         - name: data
           emptyDir:
