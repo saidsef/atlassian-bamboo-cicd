@@ -22,6 +22,12 @@ spec:
         name: bamboo
         app: bamboo
     spec:
+      automountServiceAccountToken: false
+      enableServiceLinks: false
+      securityContext:
+        runAsNonRoot: true
+        runAsGroup: 65534
+        runAsUser: 65534
       containers:
         - image: docker.io/saidsef/atlassian-bamboo-cicd:v2023.04
           imagePullPolicy: Always
@@ -35,19 +41,24 @@ spec:
             - protocol: TCP
               containerPort: 8085
               name: bamboo
+          resources:
+            limits:
+              cpu: 500m
+              memory: 1Gi
+              ephemeral-storage: 3Gi
           livenessProbe:
             exec:
               command:
                 - pgrep
                 - java
-            initialDelaySeconds: 3
+            initialDelaySeconds: 10
             periodSeconds: 3
             successThreshold: 1
             timeoutSeconds: 2
           readinessProbe:
             tcpSocket:
               port: bamboo
-            initialDelaySeconds: 5
+            initialDelaySeconds: 10
             periodSeconds: 5
             successThreshold: 1
             timeoutSeconds: 1
@@ -56,18 +67,24 @@ spec:
               type: RuntimeDefault
             allowPrivilegeEscalation: false
             privileged: false
-            runAsGroup: 65534
-            runAsUser: 65534
-            runAsNonRoot: true
-            readOnlyRootFilesystem: false
+            readOnlyRootFilesystem: true
             capabilities:
               drop:
                 - ALL
           volumeMounts:
-            - name: bamboo-storage
+            - name: data
               mountPath: /data
               subPath: data
+            - name: data
+              mountPath: /opt/atlassian-bamboo/logs
+              subPath: logs
+            - name: data
+              mountPath: /opt/atlassian-bamboo/work
+              subPath: work
+            - name: data
+              mountPath: /opt/atlassian-bamboo/conf/Catalina
+              subPath: catalina
       volumes:
-        - name: bamboo-storage
+        - name: data
           emptyDir:
             sizeLimit: 3Gi
