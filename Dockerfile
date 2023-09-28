@@ -1,7 +1,7 @@
 FROM docker.io/openjdk:11-slim
 
 ARG BUILD_ID=""
-ARG BAMBOO_VERSION="9.2.4"
+ARG BAMBOO_VERSION="9.3.3"
 ARG PORT=""
 ARG REF=""
 
