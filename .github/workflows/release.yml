@@ -42,8 +42,10 @@ jobs:
                 owner, repo,
                 tag_name: tag,
                 title: tag,
-                release_name: tag,
+                name: tag,
+                body: "${{ env.TAG }}",
                 draft: false,
+                make_latest: "true",
                 target_commitish: sha
               });
 
@@ -83,7 +85,7 @@ jobs:
             } catch (e) {
               console.log(e.status);
             } finally {
-              for (let file of await fs.readdir('./deployment')) {
+              for (let file of await fs.readdir('./deployment/*.yml')) {
                 await github.rest.repos.uploadReleaseAsset({
                   owner, repo,
                   release_id: ${{ steps.release.outputs.result }},
