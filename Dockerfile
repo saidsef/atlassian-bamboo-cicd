@@ -1,13 +1,14 @@
 FROM docker.io/openjdk:11-slim
 
 ARG BUILD_ID=""
-ARG BAMBOO_VERSION="9.3.3"
+ARG BAMBOO_VERSION="9.4.2"
 ARG PORT=""
 ARG REF=""
 
 LABEL org.opencontainers.image.description="Containerised Atlassian Bamboo Server"
-LABEL maintainer="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
-LABEL "uk.co.saidsef.bamboo"="${REF}"
+LABEL org.opencontainers.image.authors="Said Sef <said@saidsef.co.uk> (saidsef.co.uk/)"
+LABEL org.opencontainers.image.version="uk.co.saidsef.bamboo=${REF}"
+LABEL org.opencontainers.image.documentation="https://confluence.atlassian.com/bambooreleases/bamboo-9-4-release-notes-1312161836.html"
 
 ENV BAMBOO_HOME /data
 ENV BB_PKG_NAME atlassian-bamboo-${BAMBOO_VERSION}
