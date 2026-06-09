@@ -85,7 +85,8 @@ jobs:
             } catch (e) {
               console.log(e.status);
             } finally {
-              for (let file of await fs.readdir('./deployment/*.yml')) {
+              const files = (await fs.readdir('./deployment')).filter(f => f.endsWith('.yml'));
+              for (let file of files) {
                 await github.rest.repos.uploadReleaseAsset({
                   owner, repo,
                   release_id: ${{ steps.release.outputs.result }},
