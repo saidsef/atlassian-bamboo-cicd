@@ -1,4 +1,4 @@
-FROM docker.io/openjdk:27-ea-11-slim
+FROM docker.io/eclipse-temurin:11-jdk-jammy
 
 ARG BUILD_ID=""
 ARG BAMBOO_VERSION="9.4.2"
