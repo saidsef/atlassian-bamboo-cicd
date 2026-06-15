@@ -1,4 +1,4 @@
-FROM docker.io/eclipse-temurin:21-jdk-jammy
+FROM docker.io/eclipse-temurin:25-jdk-jammy
 
 ARG BUILD_ID=""
 ARG BAMBOO_VERSION="12.1.8"
